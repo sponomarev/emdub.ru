@@ -3,9 +3,10 @@ locals {
     [
       {
         Redirect = {
+          Protocol             = "https"
           HostName             = "vk.com"
           HttpRedirectCode     = "301"
-          ReplaceKeyPrefixWith = "e_dub"
+          ReplaceKeyPrefixWith = "e_dub#"
         }
       },
     ]
