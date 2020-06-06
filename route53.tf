@@ -39,6 +39,16 @@ resource "aws_route53_record" "keybase" {
   ]
 }
 
+resource "aws_route53_record" "validation" {
+  count = 1 + length(aws_acm_certificate.certificate.subject_alternative_names)
+
+  zone_id = aws_route53_zone.zone.id
+  name    = aws_acm_certificate.certificate.domain_validation_options[count.index].resource_record_name
+  type    = aws_acm_certificate.certificate.domain_validation_options[count.index].resource_record_type
+  records = [aws_acm_certificate.certificate.domain_validation_options[count.index].resource_record_value]
+  ttl     = 60
+}
+
 output "name_servers" {
   description = "Domain zone NS servers"
   value       = aws_route53_zone.zone.name_servers
