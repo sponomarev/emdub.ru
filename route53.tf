@@ -10,8 +10,8 @@ resource "aws_route53_record" "root" {
   type    = "A"
 
   alias {
-    name                   = aws_s3_bucket.root.website_domain
-    zone_id                = aws_s3_bucket.root.hosted_zone_id
+    name                   = aws_cloudfront_distribution.root.domain_name
+    zone_id                = aws_cloudfront_distribution.root.hosted_zone_id
     evaluate_target_health = false
   }
 }
@@ -22,8 +22,8 @@ resource "aws_route53_record" "www" {
   type    = "A"
 
   alias {
-    name                   = aws_s3_bucket.www.website_domain
-    zone_id                = aws_s3_bucket.www.hosted_zone_id
+    name                   = aws_cloudfront_distribution.www.domain_name
+    zone_id                = aws_cloudfront_distribution.www.hosted_zone_id
     evaluate_target_health = false
   }
 }
