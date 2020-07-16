@@ -49,6 +49,18 @@ resource "aws_route53_record" "validation" {
   ttl     = 60
 }
 
+resource "aws_route53_record" "caa" {
+  zone_id = aws_route53_zone.zone.id
+  name    = var.hostname
+  type    = "CAA"
+  ttl     = 300
+
+  records = [
+    "0 issue \"amazon.com\"",
+    "0 iodef \"mailto:me@sergey-ponomarev.ru\"",
+  ]
+}
+
 output "name_servers" {
   description = "Domain zone NS servers"
   value       = aws_route53_zone.zone.name_servers
